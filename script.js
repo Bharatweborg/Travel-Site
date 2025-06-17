@@ -5,93 +5,87 @@ document.addEventListener('DOMContentLoaded', function() {
   const themeToggle = document.getElementById('theme-toggle');
   const htmlElement = document.documentElement;
   
-  // Check if theme toggle element exists
-  if (!themeToggle) {
-    console.error('Theme toggle button not found!');
-    return;
-  }
-
-  const themeIcon = themeToggle.querySelector('i');
-  
-  // Function to update theme icon
-  function updateThemeIcon(theme) {
-    if (!themeIcon) {
-      console.error('Theme icon not found!');
-      return;
+  if (themeToggle) {
+    const themeIcon = themeToggle.querySelector('i');
+    
+    function updateThemeIcon(theme) {
+      if (themeIcon) {
+        themeIcon.className = theme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
+      }
     }
-    themeIcon.className = theme === 'light' ? 'fas fa-sun' : 'fas fa-moon';
-  }
 
-  // Function to set theme
-  function setTheme(theme) {
-    htmlElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
-    updateThemeIcon(theme);
-  }
+    function setTheme(theme) {
+      htmlElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      updateThemeIcon(theme);
+    }
 
-  // Initialize theme from localStorage or default to light
-  const savedTheme = localStorage.getItem('theme') || 'light';
-  setTheme(savedTheme);
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
 
-  // Toggle theme on button click
-  themeToggle.addEventListener('click', () => {
-    const currentTheme = htmlElement.getAttribute('data-theme');
-    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
-    setTheme(newTheme);
-  });
+    themeToggle.addEventListener('click', () => {
+      const currentTheme = htmlElement.getAttribute('data-theme');
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      setTheme(newTheme);
+    });
 
-  // ==================== CONTACT FORM HANDLING ====================
-  const contactForm = document.getElementById('contactForm');
-  
-  if (contactForm) {
-    contactForm.addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Validate form fields
-      const name = document.getElementById('name')?.value.trim();
-      const email = document.getElementById('email')?.value.trim();
-      const message = document.getElementById('message')?.value.trim();
-
-      if (!name || !email || !message) {
-        alert('Please fill in all required fields.');
-        return;
-      }
-
-      // Basic email validation
-      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-        alert('Please enter a valid email address.');
-        return;
-      }
-
-      // Prepare form data
-      const formData = {
-        name: name,
-        email: email,
-        message: message,
-        timestamp: new Date().toISOString()
-      };
-
-      // Here you would typically send the form data to a server
-      console.log('Form submitted:', formData);
-      
-      // Clear form
-      this.reset();
-      
-      // Show success message (better to use a modal or inline message)
-      const formMessage = document.createElement('div');
-      formMessage.textContent = 'Thank you for your message! We will get back to you soon.';
-      formMessage.style.color = 'green';
-      formMessage.style.marginTop = '1rem';
-      this.appendChild(formMessage);
-      
-      // Remove message after 5 seconds
+    // Add animation to theme toggle button
+    themeToggle.style.transition = 'transform 0.3s ease';
+    themeToggle.addEventListener('click', function() {
+      this.style.transform = 'scale(0.9)';
       setTimeout(() => {
-        formMessage.remove();
-      }, 5000);
+        this.style.transform = 'scale(1)';
+      }, 300);
     });
   }
 
-  // ==================== SMOOTH SCROLL ====================
+  // ==================== IMPROVED MOBILE MENU ====================
+  const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+  const navLinks = document.querySelector('.nav-links');
+  
+  if (mobileMenuBtn && navLinks) {
+    // Initialize mobile menu state
+    function initMobileMenu() {
+      if (window.innerWidth <= 768) {
+        mobileMenuBtn.style.display = 'block';
+        navLinks.style.display = 'none';
+      } else {
+        mobileMenuBtn.style.display = 'none';
+        navLinks.style.display = 'flex';
+      }
+    }
+
+    initMobileMenu();
+    window.addEventListener('resize', initMobileMenu);
+
+    mobileMenuBtn.addEventListener('click', function() {
+      navLinks.classList.toggle('active');
+      
+      // Change icon
+      const icon = this.querySelector('i');
+      if (navLinks.classList.contains('active')) {
+        icon.classList.replace('fa-bars', 'fa-times');
+        navLinks.style.display = 'flex';
+      } else {
+        icon.classList.replace('fa-times', 'fa-bars');
+        navLinks.style.display = 'none';
+      }
+    });
+
+    // Close menu when clicking links
+    document.querySelectorAll('.nav-links a').forEach(item => {
+      item.addEventListener('click', () => {
+        if (window.innerWidth <= 768) {
+          navLinks.classList.remove('active');
+          const icon = mobileMenuBtn.querySelector('i');
+          icon.classList.replace('fa-times', 'fa-bars');
+          navLinks.style.display = 'none';
+        }
+      });
+    });
+  }
+
+  // ==================== SMOOTH SCROLLING ====================
   document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
       e.preventDefault();
@@ -99,12 +93,18 @@ document.addEventListener('DOMContentLoaded', function() {
       const targetElement = document.querySelector(targetId);
       
       if (targetElement) {
+        // Close mobile menu if open
+        if (navLinks && navLinks.classList.contains('active')) {
+          navLinks.classList.remove('active');
+          const icon = mobileMenuBtn?.querySelector('i');
+          if (icon) icon.className = 'fas fa-bars';
+        }
+
         targetElement.scrollIntoView({
           behavior: 'smooth',
           block: 'start'
         });
         
-        // Update URL without page jump
         if (history.pushState) {
           history.pushState(null, null, targetId);
         } else {
@@ -114,19 +114,50 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 
-  // ==================== ADDITIONAL ENHANCEMENTS ====================
+  // ==================== CONTACT FORM HANDLING ====================
+  const contactForm = document.getElementById('contactForm');
+  const formMessage = document.getElementById('formMessage');
   
-  // Add animation to theme toggle button
-  if (themeToggle) {
-    themeToggle.style.transition = 'transform 0.3s ease';
-    themeToggle.addEventListener('click', function() {
-      this.style.transform = 'scale(0.9)';
-      setTimeout(() => {
-        this.style.transform = 'scale(1)';
-      }, 300);
+  if (contactForm && formMessage) {
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      if (!name || !email || !message) {
+        showFormMessage('Please fill in all required fields.', 'error');
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showFormMessage('Please enter a valid email address.', 'error');
+        return;
+      }
+
+      const formData = {
+        name: name,
+        email: email,
+        message: message,
+        timestamp: new Date().toISOString()
+      };
+
+      console.log('Form submitted:', formData);
+      showFormMessage('Thank you for your message! We will get back to you soon.', 'success');
+      this.reset();
     });
+
+    function showFormMessage(message, type) {
+      formMessage.textContent = message;
+      formMessage.style.color = type === 'error' ? '#ff3333' : '#4CAF50';
+      formMessage.style.display = 'block';
+      
+      setTimeout(() => {
+        formMessage.style.display = 'none';
+      }, 5000);
+    }
   }
-  
-  // Initialize any other components here
+
   console.log('All scripts initialized successfully');
 });
