@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Haranathx - Your Travel Companion</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Inter:wght@400;500&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Navbar Hover Animation */
+    .nav-links a {
+      position: relative;
+      padding-bottom: 5px;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      width: 0;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--accent-primary);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Footer Styles */
+    footer {
+      background-color: var(--footer-bg);
+      color: var(--footer-text);
+      padding: 60px 0 30px;
+    }
+
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 40px;
+    }
+
+    .footer-logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--footer-text);
+      margin-bottom: 20px;
+    }
+
+    .footer-links h3 {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    .footer-links h3::after {
+      content: '';
+      position: absolute;
+      width: 40px;
+      height: 2px;
+      bottom: 0;
+      left: 0;
+      background-color: var(--accent-primary);
+    }
+
+    .footer-links ul {
+      list-style: none;
+    }
+
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+
+    .footer-links a {
+      color: var(--footer-text);
+      text-decoration: none;
+      transition: color 0.3s ease;
+      position: relative;
+    }
+
+    .footer-links a:hover {
+      color: var(--accent-secondary);
+    }
+
+    .social-links {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: var(--footer-text);
+      font-size: 1.2rem;
+      transition: all 0.3s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--accent-secondary);
+      transform: translateY(-3px);
+    }
+
+    .copyright {
+      text-align: center;
+      margin-top: 50px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .footer-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">Haranathx.</div>
+    <div class="nav-links">
+      <a href="#home">Home</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#packages">Packages</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+    <div class="nav-right">
+      <button id="theme-toggle" class="theme-toggle">
+        <i class="fas fa-sun"></i>
+      </button>
+      <div class="auth-buttons">
+        <button class="login-btn">Login</button>
+        <button class="signup-btn">Sign Up</button>
+      </div>
+    </div>
+  </nav>
+
+  <main>
+    <!-- Your existing sections (Home, Destinations, Packages, About, Contact) -->
+    <!-- Home Section -->
+    <section id="home" class="hero-section">
+      <div class="container">
+        <h1>Discover Your Next Adventure</h1>
+        <p>Explore the world with our curated travel experiences</p>
+        <a href="#destinations" class="cta-button">Explore Destinations</a>
+      </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="destinations-section">
+      <div class="container">
+        <h2 class="section-title">Popular Destinations</h2>
+        <div class="destinations-grid">
+          <div class="destination-card">
+            <img src="https://images.unsplash.com/photo-1503917988258-f87a78e3c995" alt="Paris">
+            <div class="destination-info">
+              <h3>Paris, France</h3>
+              <p>The city of love and lights</p>
+              <a href="#" class="explore-btn">Explore</a>
+            </div>
+          </div>
+          <div class="destination-card">
+            <img src="https://images.unsplash.com/photo-1518391846015-55a9cc003b25" alt="Tokyo">
+            <div class="destination-info">
+              <h3>Tokyo, Japan</h3>
+              <p>Where tradition meets innovation</p>
+              <a href="#" class="explore-btn">Explore</a>
+            </div>
+          </div>
+          <div class="destination-card">
+            <img src="https://images.unsplash.com/photo-1523482580672-f109ba8cb9be" alt="New York">
+            <div class="destination-info">
+              <h3>New York, USA</h3>
+              <p>The city that never sleeps</p>
+              <a href="#" class="explore-btn">Explore</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section id="packages" class="packages-section">
+      <div class="container">
+        <h2 class="section-title">Travel Packages</h2>
+        <div class="packages-grid">
+          <div class="package-card">
+            <div class="package-header">
+              <h3>European Explorer</h3>
+              <span class="price">$2,499</span>
+            </div>
+            <ul class="package-features">
+              <li><i class="fas fa-check"></i> 10-day tour</li>
+              <li><i class="fas fa-check"></i> 4 countries</li>
+              <li><i class="fas fa-check"></i> Guided tours</li>
+              <li><i class="fas fa-check"></i> Luxury accommodations</li>
+            </ul>
+            <button class="book-btn">Book Now</button>
+          </div>
+          <div class="package-card">
+            <div class="package-header">
+              <h3>Asian Adventure</h3>
+              <span class="price">$1,899</span>
+            </div>
+            <ul class="package-features">
+              <li><i class="fas fa-check"></i> 14-day tour</li>
+              <li><i class="fas fa-check"></i> 3 countries</li>
+              <li><i class="fas fa-check"></i> Cultural experiences</li>
+              <li><i class="fas fa-check"></i> Boutique hotels</li>
+            </ul>
+            <button class="book-btn">Book Now</button>
+          </div>
+          <div class="package-card">
+            <div class="package-header">
+              <h3>American Dream</h3>
+              <span class="price">$1,599</span>
+            </div>
+            <ul class="package-features">
+              <li><i class="fas fa-check"></i> 7-day tour</li>
+              <li><i class="fas fa-check"></i> 2 cities</li>
+              <li><i class="fas fa-check"></i> National parks</li>
+              <li><i class="fas fa-check"></i> Comfortable lodgings</li>
+            </ul>
+            <button class="book-btn">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+      <div class="container">
+        <h2 class="section-title">About Haranathx</h2>
+        <div class="about-content">
+          <div class="about-image">
+            <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800" alt="Travel Experience" />
+          </div>
+          <div class="about-text">
+            <h3>Your Ultimate Travel Companion</h3>
+            <p>Founded in 2020, Haranathx has been at the forefront of transforming travel experiences. We believe in
+              creating unforgettable journeys that combine adventure, comfort, and cultural immersion.</p>
+
+            <div class="about-features">
+              <div class="feature">
+                <i class="fas fa-globe-americas"></i>
+                <h4>Global Reach</h4>
+                <p>Destinations across 50+ countries</p>
+              </div>
+              <div class="feature">
+                <i class="fas fa-users"></i>
+                <h4>Happy Travelers</h4>
+                <p>Over 100,000 satisfied customers</p>
+              </div>
+              <div class="feature">
+                <i class="fas fa-award"></i>
+                <h4>Experience</h4>
+                <p>Award-winning service since 2020</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Compact Contact Section -->
+    <section id="contact" class="contact-section">
+      <div class="container">
+        <h2 class="section-title">Contact Us</h2>
+        <div class="contact-content">
+          <div class="contact-info">
+            <div class="contact-card">
+              <i class="fas fa-map-marker-alt"></i>
+              <h4>Our Location</h4>
+              <p>123 Travel Street, Adventure City</p>
+            </div>
+            <div class="contact-card">
+              <i class="fas fa-phone"></i>
+              <h4>Phone</h4>
+              <p>+1 (555) 123-4567</p>
+            </div>
+            <div class="contact-card">
+              <i class="fas fa-envelope"></i>
+              <h4>Email</h4>
+              <p><a href="mailto:haranathx@gmail.com" class="email-link">haranathx@gmail.com</a></p>
+            </div>
+          </div>
+
+          <div class="contact-form-container">
+            <form id="contactForm" class="contact-form">
+              <div class="form-group">
+                <input type="text" id="name" required placeholder="Your Name">
+              </div>
+              <div class="form-group">
+                <input type="email" id="email" required placeholder="Your Email">
+              </div>
+              <div class="form-group">
+                <textarea id="message" required placeholder="Your Message" rows="4"></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Send Message</button>
+              <p id="formMessage" style="color: green; margin-top: 10px; display: none;"></p>
+            </form>
+          </div>
+
+
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <div class="footer-about">
+        <div class="footer-logo">Haranathx.</div>
+        <p>Your ultimate travel companion for unforgettable journeys around the world.</p>
+        <div class="social-links">
+          <a href="#"><i class="fab fa-facebook-f"></i></a>
+          <a href="#"><i class="fab fa-twitter"></i></a>
+          <a href="#"><i class="fab fa-instagram"></i></a>
+          <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-links">
+        <ul>
+          <h4>Quick Links</h4>
+          <br>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#destinations">Destinations</a></li>
+          <li><a href="#packages">Packages</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <ul>
+          <h4>Support</h4>
+          <br>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms & Conditions</a></li>
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Payment Options</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-links">
+        <ul>
+          <h4>Contact Info</h4>
+          <br>
+          <li><i class="fas fa-map-marker-alt"></i> 123 Travel Street, Adventure City</li>
+          <li><i class="fas fa-phone"></i> +1 (555) 123-4567</li>
+          <li><i class="fas fa-envelope"></i> <a href="mailto:haranathx@gmail.com">haranathx@gmail.com</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="copyright">&copy;
+      <script>document.write(new Date().getFullYear());</script> Haranathx. All Rights Reserved.
+    </div>
+  </footer>
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+
+  <script src="./firebase.js"></script>
+
+  <script src="./script.js"></script>
+</body>
+
+</html>
